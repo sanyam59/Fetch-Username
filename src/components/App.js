@@ -3,8 +3,21 @@ import '../styles/App.css';
 import { useState, useEffect } from 'react';
 const App = () => {
 //code here 
- 
-
+const[name,setName]=useState("");
+const[input,setInput]=useState("");
+const changeInput = async(event)=>{
+  setInput(event.target.value);
+} 
+useEffect(() =>{
+const getData = async(id=1) => {
+  await fetch(`https://content.newtonschool.co/v1/pr/main/users/${id}`)
+  .then((response) => response.json())
+  .then((data) => setName(data.name))
+  .catch((err) => console.log(err))
+}
+if(input)getData(+input);
+else getData();
+}, [input])
 
 
   return (
